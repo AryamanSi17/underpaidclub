@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+
+  --bg-color: #030303;
+  --text-color: #ffffff;
+  --accent-color: #ffffff;
+  --secondary-color: #a1a1aa;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --error-color: #ef4444;
+  --success-color: #22c55e;
+}
+
+[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #09090b;
+  --accent-color: #09090b;
+  --secondary-color: #71717a;
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+.gradient-text {
+  background-image: linear-gradient(to top right, #fff, #fff, #6b7280);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}

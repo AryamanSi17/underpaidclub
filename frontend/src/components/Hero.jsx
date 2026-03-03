@@ -13,10 +13,10 @@ const Hero = ({ className }) => {
             >
                 <span className="badge">Private Community</span>
                 <h1 className="hero-title">
-                    The Underpaid <span className="gradient-text">Club</span>
+                    The Underestimate <span className="gradient-text">Club</span>
                 </h1>
                 <p className="hero-subtitle">
-                    Because Tier 1 talent shouldn't be this undervalued.
+                    Because Tier 1 talent shouldn't be underestimated.
                 </p>
                 <p className="hero-description">
                     Building the bridge for IIT/IIM talent. A private community for students from

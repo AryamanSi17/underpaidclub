@@ -24,7 +24,7 @@ app.use('/api/waitlist', waitlistRoutes);
 
 // Root route
 app.get('/', (req, res) => {
-    res.send('Underrated Club API is running...');
+    res.send('UNDERESTIMATE CLUB API is running...');
 });
 
 const PORT = process.env.PORT || 5000;

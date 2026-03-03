@@ -1,10 +1,10 @@
-# The Underpaid Club (UPC)
+# UNDERESTIMATE CLUB
 
-Building the bridge for IIT/IIM talent. Because Tier 1 talent shouldn't be this undervalued.
+Building the bridge for IIT/IIM talent. Because Tier 1 talent shouldn't be underestimated.
 
 ## Overview
 
-The Underpaid Club is a private community for students from IITs, NITs, IIMs, and IIITs currently doing unpaid internships. We bridge the gap between "working for free" and "landing the dream PPO."
+UNDERESTIMATE CLUB is a private community for students from IITs, NITs, IIMs, and IIITs currently doing unpaid internships. We bridge the gap between "working for free" and "landing the dream PPO."
 
 ## Tech Stack
 

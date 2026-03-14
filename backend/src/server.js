@@ -24,10 +24,9 @@ app.use(morgan('dev'));
 app.use('/api/waitlist', waitlistRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Root route - Redirect to frontend
+// Root route
 app.get('/', (req, res) => {
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-    res.redirect(301, frontendUrl);
+    res.send('UNDERESTIMATE CLUB API is running...');
 });
 
 const PORT = process.env.PORT || 5000;

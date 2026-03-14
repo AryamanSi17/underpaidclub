@@ -23,7 +23,7 @@ const AdminDashboard = () => {
         setIsLoggingIn(true);
         setLoginError('');
         try {
-            const response = await axios.post('http://localhost:5000/api/admin/login', { email, password });
+            const response = await axios.post('https://underpaidclub-hfq3.vercel.app/api/admin/login', { email, password });
             if (response.data.success) {
                 const newToken = response.data.data.token;
                 localStorage.setItem('adminToken', newToken);
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
     const fetchWaitlist = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:5000/api/admin/submissions', {
+            const response = await axios.get('https://underpaidclub-hfq3.vercel.app/api/admin/submissions', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.data.success) {
@@ -62,7 +62,7 @@ const AdminDashboard = () => {
     const fetchApproved = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:5000/api/admin/approved', {
+            const response = await axios.get('https://underpaidclub-hfq3.vercel.app/api/admin/approved', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.data.success) {
@@ -87,7 +87,7 @@ const AdminDashboard = () => {
 
     const handleApprove = async (id) => {
         try {
-            const response = await axios.post(`http://localhost:5000/api/admin/approve/${id}`, {}, {
+            const response = await axios.post(`https://underpaidclub-hfq3.vercel.app/api/admin/approve/${id}`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.data.success) {

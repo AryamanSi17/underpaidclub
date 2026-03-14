@@ -33,7 +33,7 @@ const WaitlistForm = ({ className }) => {
         setStatus('loading');
 
         try {
-            const response = await axios.post('http://localhost:5000/api/waitlist', formData);
+            const response = await axios.post('https://underpaidclub-hfq3.vercel.app/api/waitlist', formData);
             if (response.data.success) {
                 setStatus('success');
                 setFormData({ name: '', email: '', linkedin: '', message: '' });

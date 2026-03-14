@@ -20,7 +20,7 @@ const Hero = ({ className }) => {
                 </p>
                 <p className="hero-description">
                     Building the bridge for IIT/IIM talent. A private community for students from
-                    IITs, NITs, IIMs, and IIITs bridging the gap between "working for free" and
+                    IITs, NITs, IIMs, BITS, and IIITs bridging the gap between "working for free" and
                     "landing the dream PPO."
                 </p>
             </motion.div>

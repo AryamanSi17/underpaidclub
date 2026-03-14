@@ -3,8 +3,9 @@ import { z } from 'zod';
 
 const waitlistSchema = z.object({
     name: z.string().min(2).max(50),
-    email: z.string().email().refine(email => email.endsWith('@nitj.ac.in'), {
-        message: "Only @nitj.ac.in emails are allowed"
+    email: z.string().email(),
+    linkedin: z.string().url().refine(url => url.includes('linkedin.com'), {
+        message: "Must be a valid LinkedIn URL"
     }),
     message: z.string().max(500).optional()
 });

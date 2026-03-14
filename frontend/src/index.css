@@ -14,7 +14,7 @@
 
   --bg-color: #030303;
   --text-color: #ffffff;
-  --accent-color: #ffffff;
+  --accent-color: #d4af37;
   --secondary-color: #a1a1aa;
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -25,7 +25,7 @@
 [data-theme='light'] {
   --bg-color: #ffffff;
   --text-color: #09090b;
-  --accent-color: #09090b;
+  --accent-color: #d4af37;
   --secondary-color: #71717a;
   --glass-bg: rgba(0, 0, 0, 0.02);
   --glass-border: rgba(0, 0, 0, 0.08);
@@ -57,7 +57,15 @@ body {
 }
 
 .gradient-text {
-  background-image: linear-gradient(to top right, #fff, #fff, #6b7280);
+  background-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.logo-text {
+  font-family: var(--font-sans);
+  background-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

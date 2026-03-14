@@ -12,8 +12,17 @@ const waitlistSchema = new mongoose.Schema({
         required: [true, 'Please add an email'],
         unique: true,
         match: [
-            /^[a-zA-Z0-9._%+-]+@nitj\.ac\.in$/,
-            'Please use a valid @nitj.ac.in email address'
+            /^\S+@\S+\.\S+$/,
+            'Please use a valid email address'
+        ]
+    },
+    linkedin: {
+        type: String,
+        required: [true, 'Please add a LinkedIn URL'],
+        trim: true,
+        match: [
+            /^https?:\/\/(www\.)?linkedin\.com\/.*$/,
+            'Please use a valid LinkedIn Profile URL'
         ]
     },
     message: {

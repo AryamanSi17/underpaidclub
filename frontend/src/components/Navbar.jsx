@@ -12,7 +12,7 @@ const Navbar = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <img src="/logo.png" alt="UNDERESTIMATE CLUB" className="w-auto" />
+                    <span className="logo-text font-bold text-xl tracking-wider">TUC</span>
                 </motion.div>
             </div>
         </nav>

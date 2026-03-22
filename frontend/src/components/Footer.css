@@ -1,8 +1,9 @@
 .footer-v3 {
     background: var(--black);
-    padding: 0 0 60px; /* Removed top padding, move it below marquee */
+    padding: 0; /* Tightened even more */
     position: relative;
     overflow: hidden;
+    margin-bottom: 0 !important;
 }
 
 /* MARQUEE */
@@ -114,8 +115,8 @@
 }
 
 .f-bottom {
-    margin: 100px 56px 0; /* Align with footer-c padding */
-    padding-top: 32px;
+    margin: 80px 56px 0; /* Reduced top margin from 100px */
+    padding: 32px 0 40px; /* Added bottom padding here instead */
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;

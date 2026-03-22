@@ -168,7 +168,7 @@ const AdminDashboard = () => {
             
             <Navbar />
 
-            <main className="flex-1 container mx-auto px-6 pt-32 pb-12 relative z-10">
+            <main className="flex-1 container mx-auto px-6 pt-32 pb-4 relative z-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
                     <div className="flex items-center gap-4">
                         <div className="p-3 bg-[var(--o1)]/10 rounded-2xl border border-[var(--o1)]/20">

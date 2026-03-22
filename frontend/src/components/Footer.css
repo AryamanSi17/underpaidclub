@@ -145,16 +145,34 @@
 }
 
 @media (max-width: 768px) {
+    .footer-v3 {
+        padding-bottom: 40px;
+    }
+    .footer-marquee span {
+        font-size: 28px;
+        margin: 0 20px;
+    }
+    .marquee-content .dot {
+        width: 6px;
+        height: 6px;
+    }
     .footer-c {
         flex-direction: column;
-        gap: 48px;
+        gap: 60px;
+        padding: 0 24px;
     }
     .f-links {
-        gap: 48px;
+        gap: 40px;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
     .f-bottom {
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
         text-align: center;
+        margin: 60px 24px 0;
+    }
+    .f-logo {
+        font-size: 28px;
     }
 }

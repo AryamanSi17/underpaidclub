@@ -1124,3 +1124,130 @@
 .rv1 { transition-delay: .08s }
 .rv2 { transition-delay: .16s }
 .rv3 { transition-delay: .24s }
+
+/* ═══════════════ MOBILE RESPONSIVE ═══════════════ */
+@media (max-width: 1024px) {
+    .hero-stats {
+        position: relative;
+        width: 100%;
+        padding: 40px 24px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+        background: var(--dark);
+        border-top: 1px solid var(--border);
+    }
+    .hstat {
+        border: none;
+        padding: 0;
+        min-width: 120px;
+    }
+    .hero-rule {
+        display: none;
+    }
+    .hero-content {
+        padding: 100px 24px 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-nav {
+        padding: 20px 24px;
+    }
+    .home-nav .nav-r {
+        display: none; /* Hide for-students/for-founders on small mobile */
+    }
+    
+    .hero-h1 {
+        font-size: clamp(64px, 15vw, 100px);
+        line-height: .85;
+    }
+    .hero-h1-main {
+        margin-top: 0;
+    }
+    .hero-h1 .it {
+        font-size: .75em;
+    }
+    
+    .hero-sub {
+        font-size: 15px;
+        margin-top: 32px;
+    }
+    
+    .hero-btns {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 40px;
+    }
+    
+    .journey-btn {
+        padding: 24px;
+    }
+    .jb-title {
+        font-size: 22px;
+    }
+    
+    /* FLOW SECTIONS */
+    .flow-hero {
+        padding: 80px 24px 60px;
+    }
+    .flow-h {
+        font-size: 42px;
+    }
+    .flow-sec {
+        padding: 60px 24px;
+    }
+    .sec-h {
+        font-size: 34px;
+    }
+    
+    .card-grid, .bucket-strip, .cohort-mini {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        background: transparent;
+    }
+    .cg-card, .bucket, .cm-card {
+        border: 1px solid var(--border);
+    }
+    
+    .split {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .price-strip {
+        grid-template-columns: 1fr;
+    }
+    .price-divider {
+        display: none;
+    }
+    .price-block {
+        padding: 40px 24px;
+        border: 1px solid var(--border);
+        margin-bottom: 12px;
+    }
+    
+    .analytics-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .footer-marquee span {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-h1 {
+        font-size: 58px;
+    }
+    .hero-stats {
+        justify-content: space-between;
+    }
+    .hstat-val {
+        font-size: 32px;
+    }
+    .analytics-row {
+        grid-template-columns: 1fr;
+    }
+}

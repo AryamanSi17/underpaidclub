@@ -169,19 +169,19 @@ const AdminDashboard = () => {
             <Navbar />
 
             <main className="flex-1 container mx-auto px-6 pt-32 pb-12 relative z-10">
-                <div className="flex items-center justify-between mb-12">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
                     <div className="flex items-center gap-4">
                         <div className="p-3 bg-[var(--o1)]/10 rounded-2xl border border-[var(--o1)]/20">
                             <Users className="w-8 h-8 text-[var(--o3)]" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-display tracking-widest uppercase text-[var(--text)]">Admin Console</h1>
+                            <h1 className="text-3xl md:text-4xl font-display tracking-widest uppercase text-[var(--text)]">Admin Console</h1>
                             <p className="text-[var(--muted)] text-xs uppercase tracking-widest mt-1">Management Dashboard</p>
                         </div>
                     </div>
                     <button 
                         onClick={handleLogout}
-                        className="flex items-center gap-2 px-6 py-2.5 bg-[var(--surface)] hover:bg-[var(--dark)] border border-[var(--border)] rounded-full text-[var(--muted)] hover:text-red-400 transition-all uppercase tracking-widest text-[10px] font-bold"
+                        className="flex items-center justify-center gap-2 px-6 py-2.5 bg-[var(--surface)] hover:bg-[var(--dark)] border border-[var(--border)] rounded-full text-[var(--muted)] hover:text-red-400 transition-all uppercase tracking-widest text-[10px] font-bold w-full md:w-auto"
                     >
                         <LogOut size={16} />
                         Logout

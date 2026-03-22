@@ -1,72 +1,130 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
 @theme {
-  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --color-primary-600: #e6c84a;
+  --color-primary-700: #d4b63b;
 }
 
 :root {
-  font-family: var(--font-sans);
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: dark;
-
-  --bg-color: #030303;
-  --text-color: #ffffff;
-  --accent-color: #d4af37;
-  --secondary-color: #a1a1aa;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --error-color: #ef4444;
-  --success-color: #22c55e;
+  --o1: #ff3d00;
+  --o2: #ff6a00;
+  --o3: #ff8c00;
+  --o4: #ffb31a;
+  --o5: #ffd600;
+  --black: #060504;
+  --dark: #0d0c0b;
+  --surface: #141312;
+  --border: rgba(255, 106, 0, 0.12);
+  --border-hot: rgba(255, 106, 0, 0.25);
+  --text: #fffaf5;
+  --muted: #8c8884;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif: 'Cormorant', serif;
 }
 
-[data-theme='light'] {
-  --bg-color: #ffffff;
-  --text-color: #09090b;
-  --accent-color: #d4af37;
-  --secondary-color: #71717a;
-  --glass-bg: rgba(0, 0, 0, 0.02);
-  --glass-border: rgba(0, 0, 0, 0.08);
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-.container {
-  max-width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
-.gradient-text {
-  background-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.logo-text {
+  background-color: var(--black);
+  color: var(--text);
   font-family: var(--font-sans);
-  background-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.max-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* PREMIUM GLOBAL EFFECTS */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 68% 18%, rgba(255, 61, 0, .2) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 38% at 18% 78%, rgba(255, 140, 0, .11) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 32% at 88% 72%, rgba(255, 61, 0, .07) 0%, transparent 52%);
+  animation: meshDrift 14s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes meshDrift {
+  0% { opacity: .7 }
+  50% { opacity: 1 }
+  100% { opacity: .7 }
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.05'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+.hero-rule {
+  position: absolute;
+  top: 0;
+  right: 30%;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255, 106, 0, .18) 25%, rgba(255, 106, 0, .1) 75%, transparent);
+  z-index: 1;
+}
+
+/* New Branding Components */
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.branding-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--o2);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--o1);
+}
+
+.branding-main {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1.1em;
+}
+
+.branding-underestimate {
+  color: var(--text);
+  text-transform: lowercase;
+}
+
+.branding-club {
+  color: var(--o3);
+  margin-left: 1px;
+}
+
+.f-logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -.03em;
+  margin-bottom: 24px;
+}
+
+.f-logo span {
+  color: var(--o2);
 }

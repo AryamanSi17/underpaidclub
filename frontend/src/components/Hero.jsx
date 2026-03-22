@@ -12,9 +12,13 @@ const Hero = ({ className }) => {
                 transition={{ duration: 0.8 }}
             >
                 <span className="badge">Private Community</span>
-                <h1 className="hero-title">
-                    The Underestimate <span className="gradient-text">Club</span>
-                </h1>
+                <div className="branding hero-title">
+                    <span className="branding-the">the</span>
+                    <div className="branding-main">
+                        <span className="branding-underestimate">underestimate</span>
+                        <span className="branding-club">Club</span>
+                    </div>
+                </div>
                 <p className="hero-subtitle">
                     Because Tier 1 talent shouldn't be underestimated.
                 </p>

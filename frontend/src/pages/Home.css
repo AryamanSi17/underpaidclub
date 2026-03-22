@@ -251,7 +251,7 @@
 
 /* TWO BIG BUTTONS */
 .hero-btns {
-  margin-top: 56px;
+  margin-top: 0; /* Handled by divider spacing */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3px;
@@ -271,6 +271,28 @@
   border-radius: 4px; /* Slightly refined corners */
   text-decoration: none;
   display: block;
+}
+
+/* JOURNEY DIVIDER */
+.hero-path {
+  margin-top: 56px;
+  text-align: center;
+  position: relative;
+  max-width: 680px;
+}
+.path-label {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  color: var(--o3);
+  margin-bottom: 24px;
+}
+.path-line {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 106, 0, 0.25);
+  margin-bottom: 40px;
 }
 .journey-btn:hover {
   transform: translateY(-2px);

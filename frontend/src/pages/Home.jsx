@@ -114,14 +114,20 @@ const Home = () => {
                 </span>
               </h1>
               <p className="hero-sub">
-                India's first and largest private ecosystem built exclusively for the underestimated elite. Not a job board. Not a portal. A closed room where Tier 1 talent meets the companies ready to bet on them.
+                India's first private ecosystem for the underestimated elite. The room is closed. The bar is real. You either qualify or you don't.
               </p>
+              
+              <div className="hero-path">
+                <span className="path-label">Choose your path</span>
+                <div className="path-line"></div>
+              </div>
+
               <div className="hero-btns">
                 <button className="journey-btn btn-student" onClick={goStudent}>
                   <div className="journey-btn-inner">
                     <span className="jb-tag">For students</span>
                     <span className="jb-title">I want to get hired</span>
-                    <span className="jb-sub">IITs, NITs, IIITs, IIMs only</span>
+                    <span className="jb-sub">Tier 1 institutions. Invite only.</span>
                   </div>
                   <span className="jb-arrow">↗</span>
                 </button>
@@ -129,7 +135,7 @@ const Home = () => {
                   <div className="journey-btn-inner">
                     <span className="jb-tag">For founders</span>
                     <span className="jb-title">I want to hire</span>
-                    <span className="jb-sub">Stop sifting. Start building.</span>
+                    <span className="jb-sub">Your next hire is already inside.</span>
                   </div>
                   <span className="jb-arrow">↗</span>
                 </button>
@@ -146,8 +152,8 @@ const Home = () => {
                 <div className="hstat-lbl">IITs, NITs, IIITs, IIMs</div>
               </div>
               <div className="hstat">
-                <div className="hstat-val">48hr</div>
-                <div className="hstat-lbl">Average founder response</div>
+                <div className="hstat-val" style={{ fontSize: '32px' }}>Less than 48hr</div>
+                <div className="hstat-lbl">From apply to founder response</div>
               </div>
             </div>
 

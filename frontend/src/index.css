@@ -1,25 +1,25 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap');
 
 @theme {
-  --color-primary-600: #e6c84a;
-  --color-primary-700: #d4b63b;
+  --color-primary-600: #84B179;
+  --color-primary-700: #6B9461;
 }
 
 :root {
-  --o1: #ff3d00;
-  --o2: #ff6a00;
-  --o3: #ff8c00;
-  --o4: #ffb31a;
-  --o5: #ffd600;
-  --black: #060504;
-  --dark: #0d0c0b;
-  --surface: #141312;
-  --border: rgba(255, 106, 0, 0.12);
-  --border-hot: rgba(255, 106, 0, 0.25);
-  --text: #fffaf5;
-  --muted: #8c8884;
-  --font-sans: 'DM Sans', sans-serif;
+  --g1: #84B179;  /* Darker Sage */
+  --g2: #A3C995;  /* Mid Sage */
+  --g3: #C2E2B5;  /* Light Sage */
+  --g4: #DFF5D1;  /* Pale Mint */
+  --g5: #EBF8DC;  /* Creamy Mint */
+  --black: #060806;
+  --dark: #0D100D;
+  --surface: #121612;
+  --border: rgba(132, 177, 121, 0.15);
+  --border-hot: rgba(132, 177, 121, 0.3);
+  --text: #F2F7F2;
+  --muted: #7A857A;
+  --font-sans: 'Poppins', sans-serif;
   --font-display: 'Bebas Neue', sans-serif;
   --font-serif: 'Cormorant', serif;
 }
@@ -54,9 +54,9 @@ h1, h2, h3, h4, .font-display {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 55% at 68% 18%, rgba(255, 61, 0, .2) 0%, transparent 58%),
-    radial-gradient(ellipse 45% 38% at 18% 78%, rgba(255, 140, 0, .11) 0%, transparent 55%),
-    radial-gradient(ellipse 38% 32% at 88% 72%, rgba(255, 61, 0, .07) 0%, transparent 52%);
+    radial-gradient(ellipse 70% 55% at 68% 18%, rgba(132, 177, 121, .15) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 38% at 18% 78%, rgba(163, 201, 149, .08) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 32% at 88% 72%, rgba(132, 177, 121, .05) 0%, transparent 52%);
   animation: meshDrift 14s ease-in-out infinite alternate;
   z-index: 0;
 }
@@ -81,7 +81,7 @@ h1, h2, h3, h4, .font-display {
   right: 30%;
   bottom: 0;
   width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(255, 106, 0, .18) 25%, rgba(255, 106, 0, .1) 75%, transparent);
+  background: linear-gradient(180deg, transparent, rgba(132, 177, 121, .15) 25%, rgba(132, 177, 121, .08) 75%, transparent);
   z-index: 1;
 }
 
@@ -95,9 +95,9 @@ h1, h2, h3, h4, .font-display {
 .branding-dot {
   width: 6px;
   height: 6px;
-  background: var(--o2);
+  background: var(--g1);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--o1);
+  box-shadow: 0 0 12px var(--g2);
 }
 
 .branding-main {
@@ -113,7 +113,7 @@ h1, h2, h3, h4, .font-display {
 }
 
 .branding-club {
-  color: var(--o3);
+  color: var(--g2);
   margin-left: 1px;
 }
 
@@ -126,5 +126,5 @@ h1, h2, h3, h4, .font-display {
 }
 
 .f-logo span {
-  color: var(--o2);
+  color: var(--g1);
 }

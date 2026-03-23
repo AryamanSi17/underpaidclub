@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Underestimate Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:ital,wght@0,300;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{
+  background:#030806;
+  color:#EDF5EF;
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  cursor:none;
+}
+::selection{background:#00C853;color:#fff}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:#00E676;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+#cur-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(0,230,118,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+
+/* CANVAS for particles */
+#canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* MAIN HERO */
+.hero{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  z-index:1;
+}
+
+/* DEEP ORANGE GLOW — right side bleeds in */
+.glow-right{
+  position:absolute;
+  right:-120px;top:-100px;
+  width:700px;height:900px;
+  background:radial-gradient(ellipse at center,rgba(0,200,83,.22) 0%,rgba(0,230,118,.1) 35%,transparent 68%);
+  pointer-events:none;
+  animation:glowBreathe 8s ease-in-out infinite;
+  z-index:1;
+}
+.glow-right-2{
+  position:absolute;
+  right:-60px;bottom:-80px;
+  width:500px;height:500px;
+  background:radial-gradient(ellipse at center,rgba(0,180,60,.13) 0%,transparent 65%);
+  pointer-events:none;
+  animation:glowBreathe 11s ease-in-out infinite reverse;
+  z-index:1;
+}
+.glow-floor{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:300px;
+  background:linear-gradient(180deg,transparent,rgba(0,200,83,.03) 60%,rgba(0,180,60,.08));
+  pointer-events:none;z-index:1;
+}
+@keyframes glowBreathe{
+  0%,100%{opacity:.8;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.06)}
+}
+
+/* Horizontal scan line */
+.scanline{
+  position:absolute;
+  left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,230,118,.12) 30%,rgba(0,230,118,.3) 60%,transparent);
+  animation:scan 12s linear infinite;
+  pointer-events:none;z-index:2;
+}
+@keyframes scan{0%{top:-2px;opacity:0}5%{opacity:1}95%{opacity:.4}100%{top:100vh;opacity:0}}
+
+/* VIGNETTE */
+.vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 100% 100% at 50% 50%,transparent 40%,rgba(5,4,3,.7) 100%);
+  pointer-events:none;z-index:2;
+}
+
+/* NAV */
+nav{
+  position:relative;z-index:10;
+  padding:32px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-shrink:0;
+}
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;letter-spacing:.18em;
+  color:#F5EFE6;text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-dot{
+  width:7px;height:7px;background:#00E676;border-radius:50%;
+  box-shadow:0 0 8px rgba(0,230,118,.8);
+  animation:dotPulse 2.5s ease-in-out infinite;
+}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 8px rgba(0,230,118,.8)}50%{box-shadow:0 0 16px rgba(0,230,118,1),0 0 30px rgba(0,230,118,.4)}}
+.nav-r{display:flex;align-items:center;gap:44px}
+.nav-lnk{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(245,239,230,.45);text-decoration:none;
+  transition:color .2s;
+}
+.nav-lnk:hover{color:#F5EFE6}
+.nav-apply{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;border:1px solid rgba(0,230,118,.5);
+  padding:10px 26px;text-decoration:none;
+  transition:background .2s,border-color .2s;
+  cursor:none;
+}
+.nav-apply:hover{background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.9)}
+
+/* HERO CONTENT */
+.hero-body{
+  flex:1;
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 56px 72px;
+}
+
+/* eyebrow */
+.eyebrow{
+  font-size:9px;letter-spacing:.32em;text-transform:uppercase;
+  color:#4ADE80;
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:24px;
+  opacity:0;animation:fadeUp .8s .3s ease forwards;
+}
+.eyebrow::before{content:'';display:block;width:44px;height:1px;background:linear-gradient(90deg,#00E676,transparent)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* GIANT HEADLINE */
+.h1-wrap{
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .9s .45s ease forwards;
+}
+.h1-line1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,10.5vw,152px);
+  line-height:.88;letter-spacing:.01em;
+  color:#F5EFE6;
+  display:block;
+}
+.h1-line2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,10.5vw,152px);
+  line-height:.88;letter-spacing:.01em;
+  display:block;
+  background:linear-gradient(110deg,#00C853 0%,#00E676 35%,#69F0AE 65%,#B9F6CA 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 40px rgba(0,200,83,.4));
+}
+.h1-line3{
+  font-family:'Cormorant',Georgia,serif;
+  font-style:italic;font-weight:300;
+  font-size:clamp(60px,9vw,132px);
+  line-height:.9;letter-spacing:.02em;
+  color:rgba(245,239,230,.88);
+  display:block;
+}
+
+/* sub */
+.hero-sub{
+  max-width:520px;
+  font-size:15px;line-height:1.85;
+  color:rgba(245,239,230,.42);
+  margin-bottom:44px;
+  opacity:0;animation:fadeUp .8s .62s ease forwards;
+}
+
+/* TWO BUTTONS */
+.hero-btns{
+  display:flex;gap:12px;align-items:stretch;
+  opacity:0;animation:fadeUp .8s .78s ease forwards;
+  max-width:620px;
+}
+.btn-main{
+  flex:1;
+  padding:22px 32px;
+  background:linear-gradient(120deg,#00C853,#00E676);
+  border:none;cursor:none;
+  text-decoration:none;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  transition:transform .2s;
+}
+.btn-main::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,#00E676,#69F0AE);
+  opacity:0;transition:opacity .3s;
+}
+.btn-main:hover{transform:translateY(-3px)}
+.btn-main:hover::before{opacity:1}
+.btn-main-tag{
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(3,8,6,.6);margin-bottom:8px;position:relative;
+}
+.btn-main-title{
+  font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.08em;
+  color:#030806;display:block;position:relative;margin-bottom:4px;
+}
+.btn-main-sub{font-size:11px;color:rgba(3,8,6,.55);position:relative;letter-spacing:.04em}
+.btn-main-arrow{
+  position:absolute;right:24px;bottom:22px;
+  font-size:20px;color:rgba(3,8,6,.4);
+  transition:transform .2s,color .2s;
+}
+.btn-main:hover .btn-main-arrow{transform:translate(3px,-3px);color:rgba(3,8,6,.8)}
+
+.btn-dark{
+  flex:1;
+  padding:22px 32px;
+  background:rgba(0,230,118,.03);
+  border:1px solid rgba(0,230,118,.25);
+  cursor:none;text-decoration:none;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  transition:transform .2s,border-color .2s,background .2s;
+}
+.btn-dark:hover{transform:translateY(-3px);border-color:rgba(0,230,118,.6);background:rgba(0,230,118,.07)}
+.btn-dark-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#4ADE80;margin-bottom:8px}
+.btn-dark-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.08em;color:#EDF5EF;display:block;margin-bottom:4px}
+.btn-dark-sub{font-size:11px;color:rgba(237,245,239,.38);letter-spacing:.04em}
+.btn-dark-arrow{position:absolute;right:24px;bottom:22px;font-size:20px;color:rgba(0,230,118,.4);transition:transform .2s,color .2s}
+.btn-dark:hover .btn-dark-arrow{transform:translate(3px,-3px);color:rgba(0,230,118,.9)}
+
+/* RIGHT SIDE STATS */
+.hero-stats{
+  position:absolute;right:56px;bottom:72px;z-index:10;
+  display:flex;flex-direction:column;gap:0;
+  opacity:0;animation:fadeUp .8s .9s ease forwards;
+}
+.hstat{
+  padding:20px 0;border-top:1px solid rgba(0,230,118,.1);
+  text-align:right;
+}
+.hstat:last-child{border-bottom:1px solid rgba(0,230,118,.1)}
+.hstat-val{
+  font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;
+  background:linear-gradient(110deg,#00E676,#69F0AE);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 12px rgba(0,200,83,.5));
+}
+.hstat-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,245,239,.3);margin-top:4px}
+
+/* BOTTOM ROW */
+.hero-bottom{
+  position:absolute;bottom:30px;left:56px;right:56px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  z-index:10;
+  opacity:0;animation:fadeUp .7s 1.05s ease forwards;
+}
+.bottom-tag{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,239,230,.2)}
+.scroll-ind{display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,239,230,.2)}
+.scroll-line{width:40px;height:1px;background:linear-gradient(90deg,rgba(0,230,118,.4),transparent)}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<canvas id="canvas"></canvas>
+
+<div class="hero">
+  <!-- atmospheric layers -->
+  <div class="glow-right"></div>
+  <div class="glow-right-2"></div>
+  <div class="glow-floor"></div>
+  <div class="scanline"></div>
+  <div class="vignette"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-dot"></div>
+      THE UNDERESTIMATE CLUB
+    </a>
+    <div class="nav-r">
+      <a href="#" class="nav-lnk">For Students</a>
+      <a href="#" class="nav-lnk">For Founders</a>
+      <a href="#" class="nav-lnk">Cohorts</a>
+      <a href="#" class="nav-apply">Apply Now</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="hero-body">
+    <div class="eyebrow">Where the underestimated become undeniable</div>
+
+    <div class="h1-wrap">
+      <span class="h1-line1">STOP</span>
+      <span class="h1-line1">BEING</span>
+      <span class="h1-line2">UNDER</span>
+      <span class="h1-line3">estimated</span>
+    </div>
+
+    <p class="hero-sub">
+      India's first and largest private ecosystem built exclusively for the underestimated elite.
+      Not a job board. Not a portal. A closed room where Tier 1 talent meets the companies ready to bet on them.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#" class="btn-main">
+        <span class="btn-main-tag">For students</span>
+        <span class="btn-main-title">I want to get hired</span>
+        <span class="btn-main-sub">Tier 1 institutions. Invite only.</span>
+        <span class="btn-main-arrow">↗</span>
+      </a>
+      <a href="#" class="btn-dark">
+        <span class="btn-dark-tag">For founders</span>
+        <span class="btn-dark-title">I want to hire</span>
+        <span class="btn-dark-sub">Your next hire is already inside.</span>
+        <span class="btn-dark-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-val">IDs</div>
+      <div class="hstat-lbl">Verified. Every single one.</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">Tier 1</div>
+      <div class="hstat-lbl">IITs, NITs, IIITs, IIMs</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">48hr</div>
+      <div class="hstat-lbl">From apply to founder response</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="hero-bottom">
+    <div class="bottom-tag">Elite · Vetted · Verified · theunderestimateclub.in</div>
+    <div class="scroll-ind">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function a(){
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(a);
+})();
+document.addEventListener('mouseover',e=>{
+  if(e.target.closest('a,button,.btn-main,.btn-dark')){
+    ring.style.width='52px';ring.style.height='52px';
+    ring.style.borderColor='rgba(0,230,118,.9)';
+  } else {
+    ring.style.width='30px';ring.style.height='30px';
+    ring.style.borderColor='rgba(0,230,118,.5)';
+  }
+});
+
+// PARTICLE CANVAS
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+
+function resize(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener('resize',resize);
+
+for(let i=0;i<160;i++){
+  const side=Math.random()>.35;
+  particles.push({
+    x:side?W*.45+Math.random()*W*.6:Math.random()*W*.5,
+    y:Math.random()*H,
+    r:Math.random()*1.4+.3,
+    ox:0,oy:0,
+    vx:(Math.random()-.5)*.18,
+    vy:(Math.random()-.5)*.12,
+    opacity:Math.random()*.55+.08,
+    pulse:Math.random()*Math.PI*2,
+    pulseSpeed:Math.random()*.008+.003,
+    warm:Math.random()>.5
+  });
+}
+
+let pmx=W/2,pmy=H/2;
+document.addEventListener('mousemove',e=>{pmx=e.clientX;pmy=e.clientY});
+
+function drawParticles(){
+  ctx.clearRect(0,0,W,H);
+
+  particles.forEach(p=>{
+    p.pulse+=p.pulseSpeed;
+    const pulseOpacity=p.opacity*(0.7+0.3*Math.sin(p.pulse));
+
+    const dx=pmx-p.x,dy=pmy-p.y;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<220){
+      const force=(220-dist)/220*.3;
+      p.ox+=dx/dist*force;
+      p.oy+=dy/dist*force;
+    }
+    p.ox*=.92;p.oy*=.92;
+    p.x+=p.vx+p.ox*.04;
+    p.y+=p.vy+p.oy*.04;
+
+    if(p.x<-10)p.x=W+10;
+    if(p.x>W+10)p.x=-10;
+    if(p.y<-10)p.y=H+10;
+    if(p.y>H+10)p.y=-10;
+
+    const nearGlow=p.x>W*.5;
+    let color;
+    if(p.warm&&nearGlow){
+      color=`rgba(0,${180+Math.floor(Math.random()*75)},${60+Math.floor(Math.random()*40)},${pulseOpacity})`;
+    } else if(p.warm){
+      color=`rgba(100,240,${140+Math.floor(Math.random()*40)},${pulseOpacity*.55})`;
+    } else {
+      color=`rgba(237,245,239,${pulseOpacity*.45})`;
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=color;
+    ctx.fill();
+
+    if(p.warm&&nearGlow){
+      particles.forEach(q=>{
+        if(q===p||!q.warm)return;
+        const dx2=p.x-q.x,dy2=p.y-q.y;
+        const d=Math.sqrt(dx2*dx2+dy2*dy2);
+        if(d<80){
+          ctx.beginPath();
+          ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle=`rgba(0,230,118,${.06*(1-d/80)})`;
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      });
+    }
+  });
+
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+</script>
+</body>
+</html>

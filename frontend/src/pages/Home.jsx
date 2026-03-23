@@ -113,7 +113,7 @@ const Home = () => {
               pulsating={false}
               fadeDistance={1}
               saturation={1}
-              style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.8 }}
+              style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.2 }}
             />
             <div className="glow-right"></div>
             <div className="glow-right-2"></div>

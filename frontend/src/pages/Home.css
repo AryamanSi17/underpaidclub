@@ -1785,7 +1785,7 @@
 }
 
 .scanline {
-  background: linear-gradient(90deg, transparent, rgba(132, 177, 121, .1) 30%, rgba(132, 177, 121, .25) 60%, transparent) !important;
+  display: none !important;
 }
 
 .btn-main-arrow, .btn-dark-arrow {

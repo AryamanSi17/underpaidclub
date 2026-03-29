@@ -1342,26 +1342,41 @@
 }
 
 .btn-main{
-  padding:22px 32px; background:linear-gradient(120deg,#00C853,#00E676); border:none; cursor:pointer; text-decoration:none; display:flex; flex-direction:column; position:relative; overflow:hidden; transition:transform .2s;
+  padding:22px 32px; background:linear-gradient(120deg, var(--muted-green), var(--primary-green)); border:none; cursor:pointer; text-decoration:none; display:flex; flex-direction:column; position:relative; overflow:hidden; transition:transform .2s;
+  font-family: var(--font-mono);
 }
-.btn-main::before{ content:''; position:absolute; inset:0; background:linear-gradient(120deg,#00E676,#69F0AE); opacity:0; transition:opacity .3s; }
+.btn-glow-pastel {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--pastel-hover), transparent 70%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+.btn-main:hover .btn-glow-pastel {
+  opacity: 0.15;
+}
+
+.btn-main::before{ content:''; position:absolute; inset:0; background: var(--pastel-hover); opacity:0; transition:opacity .3s; }
 .btn-main:hover{transform:translateY(-3px)}
 .btn-main:hover::before{opacity:1}
 .btn-main-tag{ font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(3,8,6,.6); margin-bottom:8px; position:relative; }
 .btn-main-title{ font-family:var(--font-display); font-size:26px; letter-spacing:.08em; color:#030806; display:block; position:relative; margin-bottom:4px; }
 .btn-main-sub{ font-size:11px; color:rgba(3,8,6,.55); position:relative; letter-spacing:.04em; }
 .btn-main-arrow{ position:absolute; right:24px; bottom:22px; font-size:20px; color:rgba(3,8,6,.4); transition:transform .2s,color .2s; margin:0!important; }
-.btn-main:hover .btn-main-arrow{transform:translate(3px,-3px);color:rgba(3,8,6,.8)}
+.btn-main:hover .btn-main-arrow{transform:translate(3px,-3px);color:rgba(0,0,0,.8)}
 
 .btn-dark{
-  padding:22px 32px; background:rgba(0,230,118,.03); border:1px solid rgba(0,230,118,.25); cursor:pointer; text-decoration:none; display:flex; flex-direction:column; position:relative; overflow:hidden; transition:transform .2s,border-color .2s,background .2s;
+  padding:22px 32px; background:rgba(255, 255, 255, 0.02); border:1px solid var(--border-main); cursor:pointer; text-decoration:none; display:flex; flex-direction:column; position:relative; overflow:hidden; transition:transform .2s,border-color .2s,background .2s;
+  font-family: var(--font-mono);
 }
-.btn-dark:hover{transform:translateY(-3px);border-color:rgba(0,230,118,.6);background:rgba(0,230,118,.07)}
-.btn-dark-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#4ADE80;margin-bottom:8px}
+
+.btn-dark:hover{transform:translateY(-3px);border-color:var(--pastel-hover);background:rgba(227, 217, 255, 0.05)}
+.btn-dark-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--pastel-hover);margin-bottom:8px}
 .btn-dark-title{font-family:var(--font-display);font-size:26px;letter-spacing:.08em;color:#EDF5EF;display:block;margin-bottom:4px}
 .btn-dark-sub{font-size:11px;color:rgba(237,245,239,.38);letter-spacing:.04em}
-.btn-dark-arrow{position:absolute;right:24px;bottom:22px;font-size:20px;color:rgba(0,230,118,.4);transition:transform .2s,color .2s}
-.btn-dark:hover .btn-dark-arrow{transform:translate(3px,-3px);color:rgba(0,230,118,.9)}
+.btn-dark-arrow{position:absolute;right:24px;bottom:22px;font-size:20px;color:var(--muted-text);transition:transform .2s,color .2s}
+.btn-dark:hover .btn-dark-arrow{transform:translate(3px,-3px);color:var(--pastel-hover)}
 
 /* IMPROVED CINEMATIC STATS */
 .hero-right {

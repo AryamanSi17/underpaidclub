@@ -11,6 +11,8 @@ import ResumePage from './pages/ResumePage';
 import Bounties from './pages/Bounties';
 import Cohort from './pages/Cohort';
 import Community from './pages/Community';
+import FounderMatching from './pages/FounderMatching';
+import Messages from './pages/Messages';
 import ProtectedRoute from './components/ProtectedRoute';
 import { DotPattern } from './components/ui/DotPattern';
 import './App.css';
@@ -34,6 +36,8 @@ function App() {
       <Route path="/resume" element={<ProtectedRoute><ResumePage /></ProtectedRoute>} />
       <Route path="/bounties" element={<ProtectedRoute><Bounties /></ProtectedRoute>} />
       <Route path="/cohort" element={<ProtectedRoute><Cohort /></ProtectedRoute>} />
+      <Route path="/founder" element={<ProtectedRoute><FounderMatching /></ProtectedRoute>} />
+      <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
     </Routes>
   );

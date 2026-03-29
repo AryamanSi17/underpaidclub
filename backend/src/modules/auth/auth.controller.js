@@ -1,29 +1,83 @@
-import {
-  verifyGoogleToken,
-  isAcInEmail,
-  findOrCreateUser,
-  generateStudentJWT,
-} from './auth.service.js';
+import User from '../../models/User.js';
+import { isAllowedDomain, generateStudentJWT } from './auth.service.js';
+import { sendOTPEmail } from './email.service.js';
 
-export const googleAuth = async (req, res) => {
-  const { credential, access_token } = req.body;
-  const token = access_token || credential;
-  if (!token) {
-    return res.status(400).json({ success: false, message: 'No credential provided' });
+export const requestOTP = async (req, res) => {
+  const { email, name } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required' });
+  }
+
+  // 1. Verify institutional domain
+  if (!isAllowedDomain(email)) {
+    return res.status(403).json({
+      success: false,
+      message: "This club is exclusively for Tier 1 institutional talent. Use your college email.",
+    });
   }
 
   try {
-    const payload = await verifyGoogleToken(token);
+    // 2. Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
-    if (!isAcInEmail(payload.email)) {
-      return res.status(403).json({
-        success: false,
-        blocked: true,
-        message: "This club isn't for everyone. No access granted.",
+    // 3. Find or create user
+    let user = await User.findOne({ email });
+    if (!user) {
+      if (!name) return res.status(400).json({ success: false, message: 'Name is required for new registration' });
+      user = await User.create({ email, name });
+    }
+
+    user.otp = otp;
+    user.otpExpires = otpExpires;
+    await user.save();
+
+    // 4. Send email (Skip if dummy account for testing)
+    if (email === 'aryaman@nitj.ac.in') {
+      user.otp = '000000'; // Override for dummy login
+      await user.save();
+      return res.status(200).json({
+        success: true,
+        message: '[DEV] Use 000000 to enter.',
       });
     }
 
-    const user = await findOrCreateUser(payload);
+    const sent = await sendOTPEmail(email, otp);
+    if (!sent) {
+       return res.status(500).json({ success: false, message: 'Error sending OTP email' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'OTP sent to your institutional email',
+    });
+  } catch (err) {
+    console.error('OTP Request Error:', err);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+export const verifyOTP = async (req, res) => {
+  const { email, otp } = req.body;
+
+  if (!email || !otp) {
+    return res.status(400).json({ success: false, message: 'Email and OTP are required' });
+  }
+
+  try {
+    const user = await User.findOne({ email, otp, otpExpires: { $gt: Date.now() } });
+
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Invalid or expired OTP' });
+    }
+
+    // Clear OTP after verification
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    user.isEmailVerified = true;
+    await user.save();
+
     const token = generateStudentJWT(user._id);
 
     return res.status(200).json({
@@ -34,7 +88,6 @@ export const googleAuth = async (req, res) => {
           id: user._id,
           name: user.name,
           email: user.email,
-          photo: user.photo,
           profileComplete: user.profileComplete,
           gauntletAttempted: user.gauntletAttempted,
           hustleScore: user.hustleScore,
@@ -44,13 +97,13 @@ export const googleAuth = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error('Google auth error:', err);
-    return res.status(401).json({ success: false, message: 'Invalid Google credential' });
+    console.error('OTP Verification Error:', err);
+    return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
 export const getMe = async (req, res) => {
-  const u = req.user;
+  const u = req.user; // Set by auth middleware
   return res.status(200).json({
     success: true,
     data: {

@@ -13,6 +13,7 @@ import resumeRoutes from './modules/resume/resume.routes.js';
 import bountiesRoutes from './modules/bounties/bounties.routes.js';
 import cohortRoutes from './modules/cohort/cohort.routes.js';
 import communityRoutes from './modules/community/community.routes.js';
+import activityRoutes from './modules/activity/activity.routes.js';
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use('/api/resume', resumeRoutes);
 app.use('/api/bounties', bountiesRoutes);
 app.use('/api/cohort', cohortRoutes);
 app.use('/api/community', communityRoutes);
+app.use('/api/activity', activityRoutes);
 
 // Root route
 app.get('/', (req, res) => {

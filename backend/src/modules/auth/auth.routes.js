@@ -1,10 +1,11 @@
-import { Router } from 'express';
-import { googleAuth, getMe } from './auth.controller.js';
+import express from 'express';
+import { requestOTP, verifyOTP, getMe } from './auth.controller.js';
 import { protectStudent } from '../../middleware/studentAuth.js';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/google', googleAuth);
+router.post('/request-otp', requestOTP);
+router.post('/verify-otp', verifyOTP);
 router.get('/me', protectStudent, getMe);
 
 export default router;

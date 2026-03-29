@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
 
 @theme {
   --color-primary-600: #84B179;
@@ -7,22 +7,31 @@
 }
 
 :root {
-  --g1: #84B179;  /* Darker Sage */
-  --g2: #A3C995;  /* Mid Sage */
-  --g3: #C2E2B5;  /* Light Sage */
-  --g4: #DFF5D1;  /* Pale Mint */
-  --g5: #EBF8DC;  /* Creamy Mint */
-  --black: #060806;
-  --dark: #0D100D;
-  --surface: #121612;
-  --border: rgba(132, 177, 121, 0.15);
-  --border-hot: rgba(132, 177, 121, 0.3);
-  --text: #F2F7F2;
-  --muted: #7A857A;
-  --font-sans: 'Poppins', sans-serif;
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-serif: 'Cormorant', serif;
+  --bg-page: #0A0A0A;
+  --bg-card: #111111;
+  --bg-elevated: #1A1A1A;
+  --border-main: #2A2A2A;
+  
+  /* Primary Green from PRD - using sparingly as per user's "not green" request for hover */
+  --primary-green: #00FF85;
+  --muted-green: #00CC6A;
+  
+  /* User requested pastel color for hover (Avoiding green) */
+  --pastel-hover: #E3D9FF; /* Soft Pastel Lavender */
+  --pastel-orange: #FFD1A1; /* Soft Pastel Orange */
+  
+  --white: #FFFFFF;
+  --body-text: #CCCCCC;
+  --muted-text: #888888;
+  --amber: #FFAA00;
+  --error: #FF4444;
+  --gold: #C9B037;
+  --header-bg: #0D0D0D;
+
+  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Poppins', sans-serif; /* Keeping Poppins for landing page if needed, but PRD says Space Mono for everything */
 }
+
 
 * {
   box-sizing: border-box;
@@ -31,12 +40,13 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--black);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-weight: 300;
+  background-color: var(--bg-page);
+  color: var(--body-text);
+  font-family: var(--font-mono);
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
+
 
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);

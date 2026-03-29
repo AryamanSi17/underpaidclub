@@ -15,10 +15,12 @@ export const verifyGoogleToken = async (token) => {
   throw new Error('Failed to verify Google token');
 };
 
-export const isAcInEmail = (email) => {
-  // In development, bypass the domain check to allow any Google account
+import { ALLOWED_DOMAINS } from '../../config/domains.js';
+
+export const isAllowedDomain = (email) => {
   if (process.env.NODE_ENV === 'development') return true;
-  return email.endsWith('.ac.in');
+  const domain = email.split('@')[1];
+  return ALLOWED_DOMAINS.includes(domain);
 };
 
 export const findOrCreateUser = async (payload) => {

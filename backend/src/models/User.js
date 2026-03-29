@@ -7,10 +7,15 @@ const experienceSchema = new mongoose.Schema({
 }, { _id: false });
 
 const userSchema = new mongoose.Schema({
-  googleId: { type: String, required: true, unique: true },
+  googleId: { type: String, sparse: true, unique: true },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   photo: { type: String },
+  
+  // Auth fields
+  otp: { type: String },
+  otpExpires: { type: Date },
+  isEmailVerified: { type: Boolean, default: false },
 
   // Step 2 — Profile Form
   college: { type: String },

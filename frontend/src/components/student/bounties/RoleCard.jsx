@@ -1,0 +1,75 @@
+import React from 'react';
+import Card from '../../ui/Card';
+import Button from '../../ui/Button';
+import { Bookmark, CheckCircle, Info } from 'lucide-react';
+
+const RoleCard = ({ role }) => {
+  if (!role) return null;
+
+  return (
+    <Card className="mb-4 relative group" hoverEffect={true}>
+      {/* Top Section */}
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className="text-white text-[18px] font-bold uppercase">{role.company}</h3>
+            {role.stage && (
+              <span className="bg-[#1A1A1A] text-[#888888] px-2 py-0.5 rounded text-[10px] font-bold border border-[#2A2A2A]">
+                {role.stage}
+              </span>
+            )}
+            {role.platinum && (
+              <span className="bg-[#C9B037]/10 text-[#C9B037] px-2 py-0.5 rounded text-[10px] font-bold border border-[#C9B037]/20">
+                PLATINUM
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 text-[#888888] text-[12px]">
+            <CheckCircle size={12} className="text-[#00FF85]" />
+            Posted by Verified Founder
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+            <div className="text-right">
+                <div className="text-white text-[16px] font-bold">{role.compensation}</div>
+                <div className="text-[#888888] text-[12px]">{role.type} · {role.duration}</div>
+            </div>
+            <button className="text-[#888888] hover:text-[#00FF85] transition-colors">
+                <Bookmark size={20} />
+            </button>
+        </div>
+      </div>
+
+      {/* Center Section */}
+      <div className="mb-6">
+        <h2 className="text-white text-[20px] font-bold mb-2">{role.title}</h2>
+        <p className="text-[#888888] text-[14px] line-clamp-2 max-w-[600px]">
+          {role.description || "Own the full growth funnel for a D2C brand. Work directly with foundations team."}
+        </p>
+      </div>
+
+      {/* Bottom Section */}
+      <div className="flex justify-between items-end">
+        <div className="flex gap-2">
+            {(role.skills || ['Product', 'Growth', 'SQL']).map(skill => (
+                <span key={skill} className="bg-[#1A1A1A] text-[#888888] px-3 py-1 rounded-full text-[12px] border border-[#2A2A2A]">
+                    {skill}
+                </span>
+            ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1.5 bg-[#00FF85]/10 text-[#00FF85] px-3 py-1 rounded-full text-[12px] font-bold">
+                {role.match}% match <Info size={14} className="opacity-50 cursor-help" />
+            </div>
+            <Button variant="primary" className="py-2.5">
+                REQUEST INTRO
+            </Button>
+        </div>
+      </div>
+    </Card>
+  );
+};
+
+export default RoleCard;

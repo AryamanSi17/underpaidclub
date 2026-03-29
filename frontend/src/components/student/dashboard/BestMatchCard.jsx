@@ -18,12 +18,12 @@ const BestMatchCard = ({ role }) => {
       </div>
       <Card className="relative overflow-hidden">
         {/* Match Percentage Badge */}
-        <div className="absolute top-6 right-6 flex items-center gap-1.5 bg-[#00FF85]/10 text-[#00FF85] px-3 py-1 rounded-full text-[12px] font-bold">
+        <div className="md:absolute md:top-6 md:right-6 flex items-center gap-1.5 bg-[#00FF85]/10 text-[#00FF85] px-3 py-1 rounded-full text-[12px] font-bold w-fit mb-4 md:mb-0">
           {role.match}% match <Info size={14} className="opacity-50" />
         </div>
 
         <div className="mb-6">
-          <h2 className="text-[22px] font-bold text-white mb-2">
+          <h2 className="text-[20px] md:text-[22px] font-bold text-white mb-2 leading-snug">
             {role.title} — {role.company}
           </h2>
           <p className="text-[#888888] text-[14px]">
@@ -31,11 +31,11 @@ const BestMatchCard = ({ role }) => {
           </p>
         </div>
 
-        <div className="flex gap-4">
-          <Button variant="primary" className="flex-1 max-w-[200px]">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button variant="primary" className="w-full sm:max-w-[200px]">
             REQUEST INTRO
           </Button>
-          <Button variant="ghost" className="flex-1 max-w-[200px]">
+          <Button variant="ghost" className="w-full sm:max-w-[200px]">
             See all {role.totalMatches || 0} roles
           </Button>
         </div>

@@ -9,22 +9,6 @@ const LandingNav = ({ isStuck, panel, onGoHome, onGoStudent, onGoFounder, onHand
           THE UNDERESTIMATE CLUB
         </a>
       </div>
-      
-      <div className="nav-center">
-        <button 
-          className={`nav-lnk ${panel === 1 ? 'active' : ''}`} 
-          onClick={onGoStudent}
-        >
-          Students
-        </button>
-        <button 
-          className={`nav-lnk ${panel === 2 ? 'active' : ''}`} 
-          onClick={onGoFounder}
-        >
-          Founders
-        </button>
-      </div>
-
       <div className="nav-r">
         <button className="nav-apply student-apply" onClick={onHandleApply}>
           Apply Now

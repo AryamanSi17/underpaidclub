@@ -1,16 +1,17 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
-  Home, User, Briefcase, Trophy, Users, MessageSquare, Shield, LogOut 
+  Home, User, Briefcase, Trophy, Users, MessageSquare, Shield, LogOut, Menu, X
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
+import { useState } from 'react';
 
 const NAV_ITEMS = [
   { to: '/dashboard', icon: Home, label: 'Dashboard' },
   { to: '/profile', icon: User, label: 'Profile' },
   { to: '/bounties', icon: Briefcase, label: 'Bounties' },
   { to: '/cohort', icon: Trophy, label: 'Cohorts' },
-  { to: '/founder', icon: Users, label: 'Find Co-founder' },
+  { to: '/founder', icon: Users, label: 'Co-founder' },
   { to: '/messages', icon: MessageSquare, label: 'Messages' },
   { to: '/war-room', icon: Shield, label: 'War Room' },
 ];
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
 export default function SidebarV2() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -25,58 +27,105 @@ export default function SidebarV2() {
   };
 
   return (
-    <aside className="w-[240px] h-screen bg-[#111111] border-r border-[#2A2A2A] flex flex-col fixed left-0 top-0 z-50">
-      {/* Logo Area */}
-      <div className="p-[20px] pt-[24px]">
+    <>
+      {/* Mobile Header / Hamburger */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0A0A0A] border-b border-[#2A2A2A] z-[60] flex items-center justify-between px-6">
         <h1 className="text-[#00FF85] font-mono font-bold text-[14px] tracking-widest uppercase">
           UNDERCLUB
         </h1>
+        <button onClick={() => setIsOpen(!isOpen)} className="text-[#888888] hover:text-white">
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* User Card */}
-      <div className="px-[20px] mb-[20px]">
-        <div className="bg-[#1A1A1A] rounded-xl p-3 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-[#2A2A2A] flex items-center justify-center text-white font-bold text-xs">
-            {user?.name?.[0] || 'U'}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-white text-[14px] font-bold truncate">{user?.name || 'User'}</p>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[#00FF85] text-[10px] font-bold uppercase tracking-wider">Hustle: {user?.hustleScore || 0}</span>
+      {/* Sidebar Overlay (Mobile) */}
+      {isOpen && (
+        <div 
+            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[55]" 
+            onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar Container */}
+      <aside className={cn(
+        "fixed left-0 top-0 h-screen bg-[#111111] border-r border-[#2A2A2A] flex flex-col z-[58] transition-all duration-300",
+        "w-[240px] lg:translate-x-0",
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        {/* Logo Area (Desktop) */}
+        <div className="hidden lg:block p-[20px] pt-[24px]">
+          <h1 className="text-[#00FF85] font-mono font-bold text-[14px] tracking-widest uppercase">
+            UNDERCLUB
+          </h1>
+        </div>
+
+        {/* User Card */}
+        <div className="px-[20px] mb-[20px] mt-20 lg:mt-0">
+          <div className="bg-[#1A1A1A] rounded-xl p-3 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-[#2A2A2A] flex items-center justify-center text-white font-bold text-xs">
+              {user?.name?.[0] || 'U'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-white text-[14px] font-bold truncate">{user?.name || 'User'}</p>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[#00FF85] text-[10px] font-bold uppercase tracking-wider">Hustle: {user?.hustleScore || 0}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-3 space-y-1">
-        {NAV_ITEMS.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) => cn(
-              "flex items-center gap-3 px-4 py-3 rounded-lg text-[14px] transition-all duration-200",
-              isActive 
-                ? "bg-[#1A1A1A] text-[#00FF85] border-l-[3px] border-[#00FF85] font-bold" 
-                : "text-[#888888] hover:text-white hover:bg-[#1A1A1A]/50"
-            )}
+        {/* Navigation */}
+        <nav className="flex-1 px-3 space-y-1 overflow-y-auto no-scrollbar">
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) => cn(
+                "flex items-center gap-3 px-4 py-3 rounded-lg text-[14px] transition-all duration-200",
+                isActive 
+                  ? "bg-[#1A1A1A] text-[#00FF85] border-l-[3px] border-[#00FF85] font-bold" 
+                  : "text-[#888888] hover:text-white hover:bg-[#1A1A1A]/50"
+              )}
+            >
+              <item.icon size={18} />
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Logout */}
+        <div className="p-3 border-t border-[#2A2A2A]">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 text-[#888888] hover:text-[#FF4444] transition-colors text-[14px]"
           >
-            <item.icon size={18} />
-            <span>{item.label}</span>
-          </NavLink>
-        ))}
-      </nav>
+            <LogOut size={18} />
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
 
-      {/* Logout */}
-      <div className="p-3 border-t border-[#2A2A2A]">
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-[#888888] hover:text-[#FF4444] transition-colors text-[14px]"
-        >
-          <LogOut size={18} />
-          <span>Logout</span>
-        </button>
+      {/* Mobile Bottom Nav Bar (Quick Access) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#111111] border-t border-[#2A2A2A] z-[60] flex items-center justify-around px-2 pb-safe">
+          {NAV_ITEMS.slice(0, 4).map(item => (
+              <NavLink 
+                key={item.to} 
+                to={item.to} 
+                className={({isActive}) => cn(
+                    "flex flex-col items-center gap-1",
+                    isActive ? "text-[#00FF85]" : "text-[#888888]"
+                )}
+              >
+                  <item.icon size={20} />
+                  <span className="text-[10px] font-bold uppercase tracking-tighter">{item.label.split(' ')[0]}</span>
+              </NavLink>
+          ))}
+          <button onClick={() => setIsOpen(true)} className="flex flex-col items-center gap-1 text-[#888888]">
+              <Menu size={20} />
+              <span className="text-[10px] font-bold uppercase tracking-tighter">More</span>
+          </button>
       </div>
-    </aside>
+    </>
   );
 }

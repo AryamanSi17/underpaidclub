@@ -4,12 +4,12 @@ const FilterTabs = ({ activeTab, onTabChange }) => {
   const tabs = ['Recommended', 'All roles', 'Saved'];
   
   return (
-    <div className="flex gap-8 border-b border-[#2A2A2A] mb-8">
+    <div className="flex gap-4 md:gap-8 border-b border-[#2A2A2A] mb-8 overflow-x-auto no-scrollbar whitespace-nowrap scroll-smooth">
       {tabs.map(tab => (
         <button
           key={tab}
           onClick={() => onTabChange(tab)}
-          className={`pb-4 text-[16px] font-bold transition-all relative ${
+          className={`pb-4 text-[14px] md:text-[16px] font-bold transition-all relative shrink-0 ${
             activeTab === tab ? 'text-white' : 'text-[#888888] hover:text-[#CCCCCC]'
           }`}
         >

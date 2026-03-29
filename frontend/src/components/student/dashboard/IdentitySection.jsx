@@ -9,7 +9,7 @@ const IdentitySection = ({ user }) => {
 
   return (
     <section className="mb-[48px]">
-      <h1 className="text-[48px] font-bold text-white leading-tight mb-2">
+      <h1 className="text-[32px] md:text-[48px] font-bold text-white leading-tight mb-2">
         {greeting}
       </h1>
       <p className="text-[#888888] text-[16px] mb-4">

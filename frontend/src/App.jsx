@@ -21,10 +21,9 @@ function App() {
   return (
     <Routes>
       {/* Public routes — keep existing home untouched */}
-      <Route
-        path="/"
-        element={<Home />}
-      />
+      <Route path="/" element={<Home />} />
+      <Route path="/student" element={<Home />} />
+      <Route path="/hire" element={<Home />} />
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/login" element={<Login />} />
       <Route path="/blocked" element={<Blocked />} />

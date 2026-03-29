@@ -2,11 +2,11 @@ import React from 'react';
 
 const ActivityItem = ({ type, message, timestamp }) => {
   return (
-    <div className="flex justify-between items-center py-4 border-b border-[#2A2A2A]/50 last:border-0 hover:bg-white/5 px-2 rounded-lg transition-all duration-200">
-      <div className="text-white text-[14px]">
+    <div className="flex flex-col sm:flex-row justify-between sm:items-center py-4 border-b border-[#2A2A2A]/50 last:border-0 hover:bg-white/5 px-4 rounded-lg transition-all duration-200 gap-1 sm:gap-4">
+      <div className="text-white text-[14px] leading-relaxed">
         {message}
       </div>
-      <div className="text-[#888888] text-[13px]">
+      <div className="text-[#888888] text-[12px] whitespace-nowrap">
         {timestamp}
       </div>
     </div>

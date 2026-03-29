@@ -22,7 +22,7 @@ const StatTile = ({ label, value, color = "#00FF85" }) => {
 
 const StatsRow = ({ rolesMatched, introsSent, pendingReplies }) => {
   return (
-    <div className="flex gap-[16px] mb-[48px]">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
       <StatTile label="Roles Matched" value={rolesMatched} />
       <StatTile label="Intros Sent" value={introsSent} />
       <StatTile 

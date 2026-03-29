@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Home.css';
 import LightRays from '../components/LightRays';
 import LandingNav from '../components/home/LandingNav';
@@ -7,10 +8,23 @@ import HeroContent from '../components/home/HeroContent';
 import HeroMarquee from '../components/home/HeroMarquee';
 
 const Home = () => {
-  const [panel, setPanel] = useState(0); // 0: Hero, 1: Student, 2: Founder
+  const { user } = useAuth();
+  const [panel, setPanel] = useState(0); // 0: Hero, 2: Founder (1 is now skipped/simplified)
   const [isStuck, setIsStuck] = useState(false);
   const shellRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Route Observer
+  useEffect(() => {
+    if (location.pathname === '/student') {
+        if (user) navigate('/dashboard');
+        else navigate('/login');
+    }
+    else if (location.pathname === '/hire') setPanel(2);
+    else setPanel(0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname, user]);
 
   // Custom Cursor
   useEffect(() => {
@@ -40,10 +54,18 @@ const Home = () => {
     };
   }, [panel]);
 
-  const goHome = (e) => { e?.preventDefault(); setPanel(0); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  const goStudent = (e) => { e?.preventDefault(); setPanel(1); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  const goFounder = (e) => { e?.preventDefault(); setPanel(2); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  const handleApply = (e) => { e?.preventDefault(); navigate('/login'); };
+  const goHome = (e) => { e?.preventDefault(); navigate('/'); };
+  const goStudent = (e) => { 
+      e?.preventDefault(); 
+      if (user) navigate('/dashboard');
+      else navigate('/login');
+  };
+  const goFounder = (e) => { e?.preventDefault(); navigate('/hire'); };
+  const handleApply = (e) => { 
+      e?.preventDefault(); 
+      if (user) navigate('/dashboard');
+      else navigate('/login');
+  };
 
   return (
     <div className="home-root">

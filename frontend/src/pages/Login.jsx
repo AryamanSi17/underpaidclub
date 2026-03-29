@@ -72,7 +72,7 @@ export default function Login() {
 
         {step === 1 ? (
           <form onSubmit={handleRequestOTP} className="space-y-6">
-            <h2 className="text-[32px] font-bold leading-tight mb-2">
+            <h2 className="text-[28px] sm:text-[32px] font-bold leading-tight mb-2">
               Enter the<br />inner circle.
             </h2>
             

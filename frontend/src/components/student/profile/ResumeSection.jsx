@@ -5,17 +5,17 @@ import Button from '../../ui/Button';
 
 const ResumeItem = ({ label, filename, date, onView, onDelete }) => {
   return (
-    <Card className="mb-4 flex items-center justify-between py-4" hoverEffect={false}>
-      <div className="flex-1">
-        <div className="text-white text-[16px] font-bold">{label}</div>
-        <div className="text-[#888888] text-[12px]">{filename} · {date}</div>
+    <Card className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 gap-4" hoverEffect={false}>
+      <div className="flex-1 min-w-0">
+        <div className="text-white text-[16px] font-bold truncate">{label}</div>
+        <div className="text-[#888888] text-[12px] truncate">{filename} · {date}</div>
       </div>
-      <div className="flex gap-2">
-        <button onClick={onView} className="p-2 text-[#888888] hover:text-white transition-colors">
-          <Eye size={18} />
+      <div className="flex gap-4 sm:gap-2 w-full sm:w-auto justify-end border-t border-[#2A2A2A] pt-3 sm:pt-0 sm:border-0">
+        <button onClick={onView} className="p-2 text-[#888888] hover:text-white transition-colors flex items-center gap-2">
+          <Eye size={18} /> <span className="sm:hidden text-xs font-bold uppercase tracking-widest">View PDF</span>
         </button>
-        <button onClick={onDelete} className="p-2 text-[#888888] hover:text-[#FF4444] transition-colors">
-          <Trash2 size={18} />
+        <button onClick={onDelete} className="p-2 text-[#888888] hover:text-[#FF4444] transition-colors flex items-center gap-2">
+          <Trash2 size={18} /> <span className="sm:hidden text-xs font-bold uppercase tracking-widest text-[#FF4444]">Delete</span>
         </button>
       </div>
     </Card>

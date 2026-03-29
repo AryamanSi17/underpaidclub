@@ -84,11 +84,11 @@ const ResumePage = () => {
         <DashboardLayoutV2>
             <div className="max-w-[1000px]">
                 <header className="mb-10">
-                    <div className="text-[12px] text-[#888888] font-bold uppercase tracking-widest mb-1">
+                    <div className="text-[10px] md:text-[12px] text-[#888888] font-bold uppercase tracking-widest mb-1">
                         ONE PROFILE, ONE RESUME
                     </div>
-                    <h1 className="text-[36px] font-bold text-white mb-2">Your Resume</h1>
-                    <p className="text-[#888888] text-[16px]">
+                    <h1 className="text-[28px] md:text-[36px] font-bold text-white mb-2">Your Resume</h1>
+                    <p className="text-[#888888] text-[14px] md:text-[16px]">
                         Auto-generated using our custom Tier 1 template. Verified by the club.
                     </p>
                 </header>

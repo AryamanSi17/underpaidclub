@@ -3,25 +3,37 @@ import React from 'react';
 const LandingNav = ({ isStuck, panel, onGoHome, onGoStudent, onGoFounder, onHandleApply }) => {
   return (
     <nav id="nav" className={`home-nav ${isStuck ? 'stuck' : ''}`}>
-      <a href="#" className="logo" onClick={onGoHome}>
-        <div className="logo-dot"></div>
-        THE UNDERESTIMATE CLUB
-      </a>
-      <div className="nav-r">
+      <div className="logo-container">
+        <a href="#" className="logo" onClick={onGoHome}>
+          <div className="logo-dot"></div>
+          THE UNDERESTIMATE CLUB
+        </a>
+      </div>
+      
+      <div className="nav-center">
         <button 
           className={`nav-lnk ${panel === 1 ? 'active' : ''}`} 
           onClick={onGoStudent}
         >
-          For Students
+          Students
         </button>
         <button 
           className={`nav-lnk ${panel === 2 ? 'active' : ''}`} 
           onClick={onGoFounder}
         >
-          For Founders
+          Founders
         </button>
-        <button className="nav-apply" onClick={onHandleApply}>
-          {panel === 2 ? 'Post a Role Free' : 'Apply Now'}
+      </div>
+
+      <div className="nav-r">
+        <button className="nav-apply student-apply" onClick={onHandleApply}>
+          Apply Now
+        </button>
+        <button className="nav-apply founder-apply" onClick={(e) => {
+            e.preventDefault();
+            window.open('https://tally.so/r/n0X5dX', '_blank'); // Standard founder link or internal
+        }}>
+          Hire Talent
         </button>
       </div>
     </nav>

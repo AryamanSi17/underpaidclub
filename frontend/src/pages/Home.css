@@ -75,7 +75,23 @@
 .nav-r {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 12px;
+}
+.logo-container {
+  flex: 1;
+}
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (max-width: 1024px) {
+  .nav-center {
+    display: none;
+  }
 }
 .nav-lnk {
   font-size: 11px;
@@ -109,6 +125,17 @@
 .nav-apply:hover {
   opacity: .88;
   transform: translateY(-1px);
+}
+.student-apply {
+  background: linear-gradient(110deg, var(--o1), var(--o3));
+}
+.founder-apply {
+  background: var(--dark);
+  border: 1px solid rgba(255, 106, 0, 0.38) !important;
+  color: var(--o3);
+}
+.founder-apply:hover {
+  background: rgba(255, 106, 0, 0.08);
 }
 
 /* PAGE SHELL — three panels side by side */

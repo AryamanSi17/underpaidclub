@@ -1,12 +1,11 @@
 import User from '../../models/User.js';
 
-const REQUIRED_PROFILE_FIELDS = [
-  'college', 'branch', 'year', 'expectedGraduation',
-  'github', 'linkedin', 'bio', 'preferredRole',
-];
+const STUDENT_REQUIRED = ['college', 'branch', 'year', 'expectedGraduation', 'github', 'linkedin', 'bio', 'preferredRole'];
+const ALUMNI_REQUIRED = ['college', 'branch', 'graduationYear', 'github', 'linkedin', 'bio', 'preferredRole', 'seniority'];
 
 export const isProfileComplete = (user) => {
-  for (const field of REQUIRED_PROFILE_FIELDS) {
+  const required = user.userType === 'alumni' ? ALUMNI_REQUIRED : STUDENT_REQUIRED;
+  for (const field of required) {
     if (!user[field]) return false;
   }
   if (!user.skills || user.skills.length === 0) return false;
@@ -15,9 +14,10 @@ export const isProfileComplete = (user) => {
 
 export const updateProfile = async (userId, data) => {
   const allowedFields = [
-    'college', 'branch', 'year', 'expectedGraduation',
+    'college', 'branch', 'year', 'expectedGraduation', 'graduationYear',
     'skills', 'github', 'linkedin', 'twitter', 'portfolio',
-    'experience', 'bio', 'preferredRole',
+    'experience', 'bio', 'preferredRole', 'seniority', 'roleTypePreference', 
+    'ctcPreference', 'alumniDegreeCertificate'
   ];
 
   const update = {};

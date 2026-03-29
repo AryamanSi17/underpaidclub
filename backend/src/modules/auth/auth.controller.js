@@ -3,7 +3,7 @@ import { isAllowedDomain, generateStudentJWT } from './auth.service.js';
 import { sendOTPEmail } from './email.service.js';
 
 export const requestOTP = async (req, res) => {
-  const { email, name } = req.body;
+  const { email, name, userType } = req.body;
 
   if (!email) {
     return res.status(400).json({ success: false, message: 'Email is required' });
@@ -26,7 +26,7 @@ export const requestOTP = async (req, res) => {
     let user = await User.findOne({ email });
     if (!user) {
       if (!name) return res.status(400).json({ success: false, message: 'Name is required for new registration' });
-      user = await User.create({ email, name });
+      user = await User.create({ email, name, userType: userType || 'student' });
     }
 
     user.otp = otp;

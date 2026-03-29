@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
   otp: { type: String },
   otpExpires: { type: Date },
   isEmailVerified: { type: Boolean, default: false },
+  userType: { type: String, enum: ['student', 'alumni'], default: 'student' },
+  alumniVerificationStatus: { type: String, enum: ['unverified', 'pending', 'verified'], default: 'unverified' },
+  alumniDegreeCertificate: { type: String }, // URL to PDF/Image
 
   // Step 2 — Profile Form
   college: { type: String },
@@ -30,6 +33,10 @@ const userSchema = new mongoose.Schema({
   experience: [experienceSchema],
   bio: { type: String },
   preferredRole: { type: String, enum: ['internship', 'fulltime', 'bounty'] },
+  seniority: { type: String }, // IC, Lead, Manager, etc.
+  roleTypePreference: { type: String }, // Tech, Non-Tech, Both
+  ctcPreference: { type: String }, 
+  graduationYear: { type: Number },
   profileComplete: { type: Boolean, default: false },
 
   // Step 3 & 4 — Gauntlet

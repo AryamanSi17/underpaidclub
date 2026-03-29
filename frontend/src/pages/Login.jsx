@@ -11,6 +11,7 @@ export default function Login() {
   const [step, setStep] = useState(1); // 1: Email, 2: OTP
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [userType, setUserType] = useState('student'); // 'student' or 'alumni'
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,13 +22,16 @@ export default function Login() {
   }, [user, navigate]);
 
   const handleRequestOTP = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setLoading(true);
     setError('');
     try {
-      await requestOTP(email, name);
+      await requestOTP(email, name, userType);
       setStep(2);
-      setMessage('A 6-digit code has been sent to your institutional email.');
+      setMessage(userType === 'student' 
+        ? 'A 6-digit code has been sent to your institutional email.'
+        : 'Verify your identity. Alumni without email access use Manual Path.'
+      );
     } catch (err) {
       setError(err.response?.data?.message || 'Verification failed. Are you sure that is a Tier 1 institutional email?');
     } finally {
@@ -71,9 +75,23 @@ export default function Login() {
             <h2 className="text-[32px] font-bold leading-tight mb-2">
               Enter the<br />inner circle.
             </h2>
-            <p className="text-[#888888] text-[15px] mb-8 leading-relaxed">
-              Use your <span className="text-white font-bold">.ac.in</span> or official institutional email to proceed.
-            </p>
+            
+            <div className="flex gap-2 p-1 bg-[#1A1A1A] rounded-lg border border-[#2A2A2A] mb-8">
+                <button 
+                  type="button"
+                  onClick={() => setUserType('student')}
+                  className={`flex-1 py-2 text-[11px] font-bold uppercase tracking-widest rounded-md transition-all ${userType === 'student' ? 'bg-[#00FF85] text-black' : 'text-[#888888] hover:text-white'}`}
+                >
+                  Student
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => setUserType('alumni')}
+                  className={`flex-1 py-2 text-[11px] font-bold uppercase tracking-widest rounded-md transition-all ${userType === 'alumni' ? 'bg-[#00FF85] text-black' : 'text-[#888888] hover:text-white'}`}
+                >
+                  Alumni
+                </button>
+            </div>
 
             {error && <div className="p-4 bg-[#FF4444]/10 border border-[#FF4444]/20 rounded-lg text-[#FF4444] text-[13px]">{error}</div>}
 
@@ -90,12 +108,14 @@ export default function Login() {
                 />
               </div>
               <div>
-                <label className="block text-[#888888] text-[11px] font-bold uppercase tracking-widest mb-2">College Email</label>
+                <label className="block text-[#888888] text-[11px] font-bold uppercase tracking-widest mb-2">
+                  {userType === 'student' ? 'College Email' : 'Professional or Personal Email'}
+                </label>
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@iitb.ac.in"
+                  placeholder={userType === 'student' ? 'you@iitb.ac.in' : 'you@gmail.com'}
                   required
                   className="w-full bg-[#111111] border border-[#2A2A2A] text-white px-4 py-3 rounded-lg outline-none focus:border-[#00FF85] transition-all"
                 />

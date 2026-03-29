@@ -25,28 +25,34 @@ const app = express();
 // Middleware
 app.use(helmet({
     crossOriginResourcePolicy: false,
-}));
+    crossOriginEmbedderPolicy: false,
+}));app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+    next();
+});
+
 const allowedOrigins = [
   'http://localhost:5173',
   'https://theunderestimateclub.in',
   'http://theunderestimateclub.in'
 ];
-app.use(cors({
-    origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl) or in the whitelist
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.error(`CORS blocked for origin: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-}));
+
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin) || !origin) {
+        res.header('Access-Control-Allow-Origin', origin || '*');
+    }
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    
+    // Handle preflight
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+    next();
+});
+
 app.use(express.json({ limit: '10mb' }));
 app.use(morgan('dev'));
 

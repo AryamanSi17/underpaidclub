@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const requestOTP = async (email, name) => {
-    const res = await api.post('/api/auth/request-otp', { email, name });
+  const requestOTP = async (email, name, userType) => {
+    const res = await api.post('/api/auth/request-otp', { email, name, userType });
     return res.data;
   };
 

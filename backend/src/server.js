@@ -23,8 +23,26 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(helmet());
-app.use(cors({ origin: '*', credentials: true }));
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://theunderestimateclub.in',
+  'http://theunderestimateclub.in'
+];
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(morgan('dev'));
 

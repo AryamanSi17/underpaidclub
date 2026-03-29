@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Button from '../components/ui/Button';
 import { Loader2, ArrowLeft } from 'lucide-react';
@@ -62,13 +62,13 @@ export default function Login() {
 
       <div className="w-full max-w-[400px] relative z-10">
         {/* Logo */}
-        <div className="mb-12 text-center">
+        <Link to="/" className="mb-12 text-center block hover:opacity-80 transition-opacity">
           <div className="inline-flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#00FF85] shadow-[0_0_10px_#00FF85]" />
             <h1 className="text-[#00FF85] text-[18px] font-bold tracking-[0.2em] uppercase">UNDERCLUB</h1>
           </div>
           <p className="text-[#888888] text-[12px] mt-2 uppercase tracking-widest opacity-50">Private Room for Tier 1 Talent</p>
-        </div>
+        </Link>
 
         {step === 1 ? (
           <form onSubmit={handleRequestOTP} className="space-y-6">

@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
   Home, User, Briefcase, Trophy, Users, MessageSquare, Shield, LogOut, Menu, X
@@ -30,9 +30,9 @@ export default function SidebarV2() {
     <>
       {/* Mobile Header / Hamburger */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0A0A0A] border-b border-[#2A2A2A] z-[60] flex items-center justify-between px-6">
-        <h1 className="text-[#00FF85] font-mono font-bold text-[14px] tracking-widest uppercase">
+        <Link to="/" className="text-[#00FF85] font-mono font-bold text-[14px] tracking-widest uppercase hover:opacity-80 transition-opacity">
           UNDERCLUB
-        </h1>
+        </Link>
         <button onClick={() => setIsOpen(!isOpen)} className="text-[#888888] hover:text-white">
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -54,9 +54,9 @@ export default function SidebarV2() {
       )}>
         {/* Logo Area (Desktop) */}
         <div className="hidden lg:block p-[20px] pt-[24px]">
-          <h1 className="text-[#00FF85] font-mono font-bold text-[14px] tracking-widest uppercase">
+          <Link to="/" className="text-[#00FF85] font-mono font-bold text-[14px] tracking-widest uppercase hover:opacity-80 transition-opacity">
             UNDERCLUB
-          </h1>
+          </Link>
         </div>
 
         {/* User Card */}

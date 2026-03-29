@@ -4,7 +4,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { Lock, CheckCircle, Shield, MessageSquare, Users, Loader2, ExternalLink, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import api from '../lib/api';
+import apiService from '../services/api.service';
 
 const RequirementItem = ({ label, done }) => (
   <div className="flex items-center justify-between py-4 border-b border-[#2A2A2A]/50 last:border-0 hover:bg-white/5 px-2 rounded-lg transition-all">
@@ -42,7 +42,7 @@ const Community = () => {
         setLoading(true);
         setError('');
         try {
-            const res = await api.get('/api/community/discord-invite');
+            const res = await apiService.community.getDiscordInvite();
             setInviteLink(res.data.data.inviteLink);
             await refreshUser();
         } catch (err) {

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DashboardLayout from '../components/student/DashboardLayout';
-import api from '../lib/api';
+import apiService from '../services/api.service';
 import { Zap, Clock, AlertTriangle, Loader2, Trophy } from 'lucide-react';
 
 const TOTAL_SECONDS = 180; // 3 minutes
@@ -29,7 +29,7 @@ export default function Gauntlet() {
     clearInterval(timerRef.current);
     setPhase('submitting');
     try {
-      const res = await api.post('/api/gauntlet/submit', { answer: text || 'No answer provided' });
+      const res = await apiService.gauntlet.submit(text || 'No answer provided');
       setResult(res.data.data);
       await refreshUser();
       setPhase('result');
@@ -57,7 +57,7 @@ export default function Gauntlet() {
 
   const startGauntlet = async () => {
     try {
-      const res = await api.get('/api/gauntlet/start');
+      const res = await apiService.gauntlet.start();
       setPrompt(res.data.data.prompt);
       setTimeLeft(TOTAL_SECONDS);
       setPhase('active');

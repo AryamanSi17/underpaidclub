@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import DashboardLayoutV2 from '../components/student/DashboardLayoutV2';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import api from '../lib/api';
+import apiService from '../services/api.service';
 import { FileText, Download, Eye, RefreshCw, Loader2, AlertTriangle, CheckCircle } from 'lucide-react';
 
 const ResumePage = () => {
@@ -21,7 +21,7 @@ const ResumePage = () => {
         setError('');
         setSuccess('');
         try {
-            await api.post('/api/resume/generate');
+            await apiService.resume.generate();
             await refreshUser();
             setSuccess('Resume generated successfully!');
         } catch (err) {
@@ -34,7 +34,7 @@ const ResumePage = () => {
     const handlePreview = async () => {
         setPreviewing(true);
         try {
-            const res = await api.get('/api/resume/preview', { responseType: 'blob' });
+            const res = await apiService.resume.preview();
             const url = URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }));
             window.open(url, '_blank');
         } catch {
@@ -47,7 +47,7 @@ const ResumePage = () => {
     const handleDownload = async () => {
         setDownloading(true);
         try {
-            const res = await api.get('/api/resume/download', { responseType: 'blob' });
+            const res = await apiService.resume.download();
             const url = URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }));
             const a = document.createElement('a');
             a.href = url;

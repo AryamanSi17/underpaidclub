@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../lib/api';
+import apiService from '../services/api.service';
 
 const AuthContext = createContext(null);
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('tuc_token');
     if (token) {
-      api.get('/api/auth/me')
+      apiService.auth.getMe()
         .then((res) => setUser(res.data.data))
         .catch(() => {
           localStorage.removeItem('tuc_token');
@@ -22,12 +22,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const requestOTP = async (email, name, userType) => {
-    const res = await api.post('/api/auth/request-otp', { email, name, userType });
+    const res = await apiService.auth.requestOTP(email, name, userType);
     return res.data;
   };
 
   const verifyOTP = async (email, otp) => {
-    const res = await api.post('/api/auth/verify-otp', { email, otp });
+    const res = await apiService.auth.verifyOTP(email, otp);
     const { token, user: userData } = res.data.data;
     localStorage.setItem('tuc_token', token);
     setUser(userData);
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const refreshUser = async () => {
-    const res = await api.get('/api/auth/me');
+    const res = await apiService.auth.getMe();
     setUser(res.data.data);
     return res.data.data;
   };

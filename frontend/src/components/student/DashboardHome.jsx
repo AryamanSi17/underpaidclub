@@ -4,7 +4,7 @@ import StatsRow from './dashboard/StatsRow';
 import BestMatchCard from './dashboard/BestMatchCard';
 import ActivityFeed from './dashboard/ActivityFeed';
 import { useAuth } from '../../context/AuthContext';
-import api from '../../lib/api';
+import apiService from '../../services/api.service';
 import { formatDistanceToNow } from 'date-fns';
 
 const DashboardHome = () => {
@@ -15,7 +15,7 @@ const DashboardHome = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get('/api/activity');
+        const res = await apiService.activity.getRecent();
         const mapped = res.data.data.map(act => ({
             ...act,
             message: act.message,

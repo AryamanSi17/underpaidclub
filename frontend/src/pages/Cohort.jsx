@@ -4,7 +4,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { Trophy, CheckCircle, Zap, Shield, Star, Info } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import api from '../lib/api';
+import apiService from '../services/api.service';
 
 const PerkItem = ({ icon: Icon, title, desc }) => {
   return (
@@ -27,7 +27,7 @@ const Cohort = () => {
     const handleJoin = async () => {
         setJoining(true);
         try {
-            await api.post('/api/cohort/join');
+            await apiService.cohort.join();
             await refreshUser();
         } catch (err) {
             console.error(err);

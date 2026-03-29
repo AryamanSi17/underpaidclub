@@ -37,7 +37,7 @@ const ProfileSetup = () => {
         setSaving(true);
         setError('');
         try {
-            await api.put('/api/profile', form);
+            await apiService.profile.update(form);
             await refreshUser();
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);

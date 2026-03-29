@@ -6,7 +6,7 @@ import FilterTabs from '../components/student/bounties/FilterTabs';
 import FilterChips from '../components/student/bounties/FilterChips';
 import RoleCard from '../components/student/bounties/RoleCard';
 import { useAuth } from '../context/AuthContext';
-import api from '../lib/api';
+import apiService from '../services/api.service';
 import { Loader2, Briefcase } from 'lucide-react';
 
 const Bounties = () => {
@@ -17,7 +17,7 @@ const Bounties = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    api.get('/api/bounties')
+    apiService.bounties.getAll()
       .then((res) => {
         const mapped = res.data.data.map(b => ({
             ...b,

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
-import axios from 'axios';
-import { cn } from '@/lib/utils';
+import apiService from '../services/api.service';
+import { cn } from '../lib/utils';
 import './WaitlistForm.css';
 
 const WaitlistForm = ({ className }) => {
@@ -33,7 +33,7 @@ const WaitlistForm = ({ className }) => {
         setStatus('loading');
 
         try {
-            const response = await axios.post('https://underpaidclub-hfq3.vercel.app/api/waitlist', formData);
+            const response = await apiService.waitlist.join(formData);
             if (response.data.success) {
                 setStatus('success');
                 setFormData({ name: '', email: '', linkedin: '', message: '' });
